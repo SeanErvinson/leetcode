@@ -25,9 +25,11 @@ def test(head, k):
     while pointer_b.next:
         pointer_a = pointer_a.next
         pointer_b = pointer_b.next
-    newHead = pointer_a.next
-    pointer_b.next = head
-    pointer_a.next = None
+
+    # At this point both a and b share the same node 1 2 3(a) 4 5(b)
+    newHead = pointer_a.next # newHead = 4 5(b)
+    pointer_b.next = head # newHead = 4 5(b) + 1 2 3 4(a) 5 [because of the reference from (b)]
+    pointer_a.next = None # newHead = 4 5 1 2 3 [cut the reference to (a)]
     return newHead
 
 print(test(ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5, None))))), 12))
